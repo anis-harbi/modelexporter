@@ -65,6 +65,11 @@
     <Compile Include="Assets\Exporter\AssetsExporter.cs" />
     <Compile Include="Assets\Exporter\ScreenCapture.cs" />
     <Compile Include="Assets\GG.cs" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-storage-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-database-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-analytics-unity\maven-metadata.xml" />
+    <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/anis/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
@@ -265,6 +270,39 @@
     </Reference>
     <Reference Include="Vuforia.UnityExtensions">
       <HintPath>/Applications/Unity/Hub/Editor/2019.1.8f1/PlaybackEngines/VuforiaSupport/Managed/Runtime/Vuforia.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Compat">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Tasks">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Storage">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Sharpen">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Analytics">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Database">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension">
+      <HintPath>/Users/anis/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>/Users/anis/Documents/GitHub/modelexporter/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.Tracker.dll</HintPath>

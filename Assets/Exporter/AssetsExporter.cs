@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Firebase;
+using Firebase.Unity.Editor;
+using Firebase.Database;
 
 public class AssetsExporter : MonoBehaviour
 {
@@ -85,6 +88,13 @@ public class AssetsExporter : MonoBehaviour
     void Start()
     {
         //UploadFileTo("X Bot", "dummy", "", false);
+        // Set this before calling into the realtime database.
+        // Set up the Editor before calling into the realtime database.
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://YOUR-FIREBASE-APP.firebaseio.com/");
+
+        // Get the root reference location of the database.
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+
         ExportFiles();
     }
 
