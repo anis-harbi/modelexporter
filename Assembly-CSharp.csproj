@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Exporter\AssetsExporter.cs" />
+    <Compile Include="Assets\Exporter\CharacterModel.cs" />
     <Compile Include="Assets\Exporter\ScreenCapture.cs" />
     <Compile Include="Assets\GG.cs" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-storage-unity\maven-metadata.xml" />

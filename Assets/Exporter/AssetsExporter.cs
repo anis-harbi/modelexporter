@@ -5,6 +5,7 @@ using System.IO;
 using Firebase;
 using Firebase.Unity.Editor;
 using Firebase.Database;
+using Firebase.Auth;
 
 public class AssetsExporter : MonoBehaviour
 {
@@ -35,25 +36,11 @@ public class AssetsExporter : MonoBehaviour
         modelRotation.z = model.transform.localRotation.z;
         model.transform.localRotation = Quaternion.Euler(modelRotation);
         yield return new WaitForEndOfFrame();
-        Debug.Log(ScreenCapture.GrabPixelsOnPostRender());
+        ScreenCapture.GrabPixelsOnPostRender(modelName+ Time.time.ToString());
         yield return new WaitForEndOfFrame();
         Destroy(model);
-        //StartCoroutine(GetModelThumbnail(model));
 
     }
-
-	IEnumerator GetModelThumbnail(GameObject model)
-	{
-        // We should only read the screen buffer after rendering is complete
-        yield return new WaitForEndOfFrame();
-        Debug.Log(ScreenCapture.GrabPixelsOnPostRender());
-        yield return new WaitForEndOfFrame();
-        Destroy(model);
-       
-
-		
-	}
-
 
     protected void ExportFiles()
     {
@@ -94,6 +81,26 @@ public class AssetsExporter : MonoBehaviour
 
         // Get the root reference location of the database.
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+
+        Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+        Firebase.Auth.Credential credential =
+    Firebase.Auth.EmailAuthProvider.GetCredential("developer@amirbaradaran.com", "Fall!2019");
+        auth.SignInWithCredentialAsync(credential).ContinueWith(task => {
+            if (task.IsCanceled)
+            {
+                Debug.LogError("SignInWithCredentialAsync was canceled.");
+                return;
+            }
+            if (task.IsFaulted)
+            {
+                Debug.LogError("SignInWithCredentialAsync encountered an error: " + task.Exception);
+                return;
+            }
+
+            Firebase.Auth.FirebaseUser newUser = task.Result;
+            Debug.LogFormat("User signed in successfully: {0} ({1})",
+                newUser.DisplayName, newUser.UserId);
+        });
 
         ExportFiles();
     }

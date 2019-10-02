@@ -3,6 +3,9 @@
 //Press the space key in Play mode to capture
 
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class ScreenCapture : MonoBehaviour
@@ -14,7 +17,7 @@ public class ScreenCapture : MonoBehaviour
 	}
 
 
-    public static string GrabPixelsOnPostRender()
+    public static string GrabPixelsOnPostRender(string name)
 	{
 		//Create a new texture with the width and height of the screen
 		Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
@@ -22,7 +25,33 @@ public class ScreenCapture : MonoBehaviour
 		texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
 		texture.Apply();
 		byte[] bytes = texture.EncodeToPNG();
-		return(Convert.ToBase64String(bytes));
+        string path = "assetMedia/images/" + name + ".png";
+        // Get a reference to the storage service, using the default Firebase App
+        Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+        // Create a reference with an initial file path and name
+        Firebase.Storage.StorageReference path_reference =
+          storage.GetReference(path);
+
+        // Upload the file to the path "images/rivers.jpg"
+        path_reference.PutBytesAsync(bytes)
+          .ContinueWith((Task<Firebase.Storage.StorageMetadata> task) => {
+              if (task.IsFaulted || task.IsCanceled)
+              {
+                  Debug.Log(task.Exception.ToString());
+          // Uh-oh, an error occurred!
+      }
+              else
+              {
+          // Metadata contains file metadata such as size, content-type, and download URL.
+          Firebase.Storage.StorageMetadata metadata = task.Result;
+                  //string download_url = metadata.DownloadUrl.ToString();
+                  Debug.Log("Finished uploading...");
+                  //Debug.Log("download url = " + download_url);
+              }
+          });
+
+
+        return (Convert.ToBase64String(bytes));
 	}
 
 }

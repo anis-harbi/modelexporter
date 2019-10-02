@@ -66,10 +66,10 @@
     <Compile Include="Assets\Editor\CustomImportSettings.cs" />
     <Compile Include="Assets\Editor\UploadToDB.cs" />
     <None Include="Assets\Firebase\Editor\AppDependencies.xml" />
+    <None Include="Assets\Firebase\Editor\FirebaseAuth_version-6.2.1_manifest.txt" />
     <None Include="Assets\Firebase\Editor\StorageDependencies.xml" />
     <None Include="Assets\Firebase\Editor\AnalyticsDependencies.xml" />
     <None Include="Assets\Firebase\Editor\FirebaseDatabase_version-6.2.1_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseAuth_v1.1.2_manifest.txt" />
     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.122.0.txt" />
     <None Include="Assets\Firebase\Editor\AuthDependencies.xml" />
     <None Include="Assets\Firebase\Editor\DatabaseDependencies.xml" />
