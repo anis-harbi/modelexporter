@@ -6,6 +6,7 @@ using Firebase;
 using Firebase.Unity.Editor;
 using Firebase.Database;
 using Firebase.Auth;
+using System.Threading.Tasks;
 
 public class AssetsExporter : MonoBehaviour
 {
@@ -23,15 +24,13 @@ public class AssetsExporter : MonoBehaviour
 
 
 
-    protected void UploadFileTo(string fileName, string uploadStoragePath, string fileTag, bool isBundle)
+    protected void UploadFileTo(string fileName, string filePath, string uploadStoragePath, string fileTag, bool isBundle)
 	{
-        if (isBundle) { string filePath = "Assets/AssetBundles"; } else { string filePath = "Assets/Resources"; }
-
         //Get screenshot and upload image
         //StartCoroutine(LoadModelForHeadshot(fileName));
 
         //Upload Original FBX to DB
-        UploadOriginalFileToStorage();
+        UploadOriginalFileToStorage(fileName, filePath, uploadStoragePath, fileTag);
 
         //Upload Asset Bundle to DB
 
@@ -59,8 +58,34 @@ public class AssetsExporter : MonoBehaviour
     }
 
 
-    protected void UploadOriginalFileToStorage()
+    protected void UploadOriginalFileToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
     {
+        byte[] bytes = File.ReadAllBytes(filePath);
+        string path = uploadStoragePath;
+        // Get a reference to the storage service, using the default Firebase App
+        Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+        // Create a reference with an initial file path and name
+        Firebase.Storage.StorageReference path_reference =
+          storage.GetReference(path);
+
+        // Upload the file to the path "images/rivers.jpg"
+        path_reference.PutBytesAsync(bytes)
+          .ContinueWith((Task<Firebase.Storage.StorageMetadata> task) => {
+              if (task.IsFaulted || task.IsCanceled)
+              {
+                  Debug.Log(task.Exception.ToString());
+                  // Uh-oh, an error occurred!
+              }
+              else
+              {
+                  // Metadata contains file metadata such as size, content-type, and download URL.
+                  Firebase.Storage.StorageMetadata metadata = task.Result;
+                  //string download_url = metadata.DownloadUrl.ToString();
+                  Debug.Log("Finished uploading...");
+                  //Debug.Log("download url = " + download_url);
+              }
+          });
+
 
     }
 
@@ -88,8 +113,7 @@ public class AssetsExporter : MonoBehaviour
             {
                 Debug.Log("Found 3D Model File: " + fileName);
                 string uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/" + AssetsExporter.modelStorageName + fileExt.ToLower();
-                Debug.Log("storage path: " + uploadStoragePath);
-                UploadFileTo(fileName, uploadStoragePath, "", false);
+                UploadFileTo(fileName, file.ToString(), uploadStoragePath, "", false);
             }
         }
     }
