@@ -12,6 +12,10 @@ using System;
 
 public class AssetsExporter : MonoBehaviour
 {
+
+    public static string databaseURL = "https://ibegoo-dev.firebaseio.com/";
+    //public static string databaseURL = "https://late-night-show.firebaseio.com/";
+
     //Storage Paths and Keys
     public static string modelsStorageURL = "assetMedia/models/";
     public static string propsStorageURL = "assetMedia/props/";
@@ -71,8 +75,8 @@ public class AssetsExporter : MonoBehaviour
         model.transform.localRotation = Quaternion.Euler(modelRotation);
         yield return new WaitForEndOfFrame();
         ScreenCapture.GrabPixelsOnPostRender(fileName);
-        yield return new WaitForEndOfFrame();
         Destroy(model);
+        yield return null;
 
     }
 
@@ -185,9 +189,10 @@ public class AssetsExporter : MonoBehaviour
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBServiceKey] = "iBEGOO Custom 3D Designs";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBDescriptionKey] = fileName + " 3D model";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey] = new JObject();
-                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = null;
-                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = null;
-                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = null;
+                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = "";
+                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = "";
+                AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = "";
+                StartCoroutine(WriteToDatabase(fileName));
                 UploadFileTo(fileName, fileExt, filePath, uploadStoragePath, "", false);
             }
         }
@@ -201,7 +206,7 @@ public class AssetsExporter : MonoBehaviour
         //UploadFileTo("X Bot", "dummy", "", false);
         // Set this before calling into the realtime database.
         // Set up the Editor before calling into the realtime database.
-        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://YOUR-FIREBASE-APP.firebaseio.com/");
+        FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(AssetsExporter.databaseURL);
 
         // Get the root reference location of the database.
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
@@ -211,6 +216,35 @@ public class AssetsExporter : MonoBehaviour
         ExportFiles();
     }
 
+    protected IEnumerator WriteToDatabase(string fileName)
+    {
+        Debug.Log("yielding 1: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey]);
+        Debug.Log("yielding 2: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey]);
+        Debug.Log("yielding 3: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey]);
+
+        yield return new WaitUntil
+        (() =>
+            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey].ToString() != ""
+            &&
+            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey].ToString() != ""
+            &&
+            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey].ToString() != ""
+        );
+
+
+        string json = AssetsExporter.modelsDict[fileName].ToString();
+        // Get the root reference location of the database.
+        DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
+        string key = reference.Child(AssetsExporter.modelsDBPath).Push().Key;
+        Debug.Log("generated key: " + key);
+        Debug.Log("path: " + AssetsExporter.modelsDBPath + key);
+        reference.Child(AssetsExporter.modelsDBPath).Child(key).SetRawJsonValueAsync(json);
+        Debug.Log("Finished writing to database: " + AssetsExporter.modelsDict[fileName]);
+        //AssetsExporter.modelsDict.Remove(fileName);
+        yield return null;
+    }
+
+
     // Update is called once per frame
     void Update()
     {
@@ -218,25 +252,9 @@ public class AssetsExporter : MonoBehaviour
         {
             headShotSpaceAvailable = true;
         }
-
-        foreach (string fileName in AssetsExporter.modelsDict.Keys)
-        {
-            if 
-            (
-            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey]                           != null 
-            &&
-            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] != null
-            &&
-            AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey]                                 != null
-            )
-            {
-                Debug.Log(AssetsExporter.modelsDict[fileName]);
-                AssetsExporter.modelsDict.Remove(fileName);
-            }
-        }
-
-
     }
+
+
 
 
     private void Awake()

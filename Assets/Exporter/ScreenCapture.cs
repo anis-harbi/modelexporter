@@ -16,7 +16,6 @@ public class ScreenCapture : MonoBehaviour
 
 	}
 
-
     public static string GrabPixelsOnPostRender(string fileName)
 	{
 		//Create a new texture with the width and height of the screen
@@ -53,7 +52,6 @@ public class ScreenCapture : MonoBehaviour
                       {
                           Debug.Log("Download URL: " + getURLtask.Result);
                           AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = getURLtask.Result;
-
                       }
                   });
 
