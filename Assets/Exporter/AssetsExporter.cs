@@ -9,16 +9,32 @@ using Firebase.Auth;
 
 public class AssetsExporter : MonoBehaviour
 {
+
+    public static string modelsStorageURL = "assetMedia/models/";
+    public static string propsStorageURL = "assetMedia/props/";
+    public static string imagesStorageURL = "assetMedia/images/";
+    public static string modelStorageName = "original";
+
+
     Dictionary<string, string> thumbnails = new Dictionary<string, string>();
     public GameObject modelsParent;
     bool headShotSpaceAvailable;
 
 
-    protected void UploadFileTo(string fileName, string uploadURL, string fileTag, bool isBundle)
+
+
+    protected void UploadFileTo(string fileName, string uploadStoragePath, string fileTag, bool isBundle)
 	{
         if (isBundle) { string filePath = "Assets/AssetBundles"; } else { string filePath = "Assets/Resources"; }
 
-		StartCoroutine(LoadModelForHeadshot(fileName));
+        //Get screenshot and upload image
+        //StartCoroutine(LoadModelForHeadshot(fileName));
+
+        //Upload Original FBX to DB
+        UploadOriginalFileToStorage();
+
+        //Upload Asset Bundle to DB
+
 	}
 
     IEnumerator LoadModelForHeadshot(string modelName)
@@ -39,6 +55,12 @@ public class AssetsExporter : MonoBehaviour
         ScreenCapture.GrabPixelsOnPostRender(modelName+ Time.time.ToString());
         yield return new WaitForEndOfFrame();
         Destroy(model);
+
+    }
+
+
+    protected void UploadOriginalFileToStorage()
+    {
 
     }
 
@@ -65,7 +87,9 @@ public class AssetsExporter : MonoBehaviour
              
             {
                 Debug.Log("Found 3D Model File: " + fileName);
-                UploadFileTo(fileName, "dummy", "", false);
+                string uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/" + AssetsExporter.modelStorageName + fileExt.ToLower();
+                Debug.Log("storage path: " + uploadStoragePath);
+                UploadFileTo(fileName, uploadStoragePath, "", false);
             }
         }
     }
@@ -84,7 +108,7 @@ public class AssetsExporter : MonoBehaviour
 
         Firebase.Auth.FirebaseAuth auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
         Firebase.Auth.Credential credential =
-    Firebase.Auth.EmailAuthProvider.GetCredential("developer@amirbaradaran.com", "Fall!2019");
+    Firebase.Auth.EmailAuthProvider.GetCredential("developer@amirbaradaran.com", "abcd1234");
         auth.SignInWithCredentialAsync(credential).ContinueWith(task => {
             if (task.IsCanceled)
             {

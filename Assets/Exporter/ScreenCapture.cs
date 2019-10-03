@@ -25,7 +25,7 @@ public class ScreenCapture : MonoBehaviour
 		texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
 		texture.Apply();
 		byte[] bytes = texture.EncodeToPNG();
-        string path = "assetMedia/images/" + name + ".png";
+        string path = AssetsExporter.imagesStorageURL + name + ".png";
         // Get a reference to the storage service, using the default Firebase App
         Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
         // Create a reference with an initial file path and name
