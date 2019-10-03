@@ -17,7 +17,7 @@ public class ScreenCapture : MonoBehaviour
 	}
 
 
-    public static string GrabPixelsOnPostRender(string name)
+    public static string GrabPixelsOnPostRender(string fileName)
 	{
 		//Create a new texture with the width and height of the screen
 		Texture2D texture = new Texture2D(Screen.width, Screen.height, TextureFormat.RGB24, false);
@@ -25,7 +25,8 @@ public class ScreenCapture : MonoBehaviour
 		texture.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0, false);
 		texture.Apply();
 		byte[] bytes = texture.EncodeToPNG();
-        string path = AssetsExporter.imagesStorageURL + name + ".png";
+        string path = AssetsExporter.imagesStorageURL + fileName + ".png";
+        Debug.Log("images path: " + path);
         // Get a reference to the storage service, using the default Firebase App
         Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
         // Create a reference with an initial file path and name
@@ -46,7 +47,16 @@ public class ScreenCapture : MonoBehaviour
           Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
                   Debug.Log("Finished uploading...");
-                  //Debug.Log("download url = " + download_url);
+                  // Fetch the download URL
+                  path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
+                      if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
+                      {
+                          Debug.Log("Download URL: " + getURLtask.Result);
+                          AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = getURLtask.Result;
+
+                      }
+                  });
+
               }
           });
 

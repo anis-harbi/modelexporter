@@ -70,6 +70,7 @@
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-app-unity\maven-metadata.xml" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-database-unity\maven-metadata.xml" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-analytics-unity\maven-metadata.xml" />
+    <None Include="Assets\JsonDotNet\link.xml" />
     <None Include="Assets\Firebase\m2repository\com\google\firebase\firebase-auth-unity\maven-metadata.xml" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -298,6 +299,9 @@
     </Reference>
     <Reference Include="Google.Sharpen">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>

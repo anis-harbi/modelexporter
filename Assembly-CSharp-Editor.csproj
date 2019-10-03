@@ -336,6 +336,9 @@
     <Reference Include="Google.Sharpen">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Compat">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Parse/Plugins/dotNet45/Unity.Compat.dll</HintPath>
     </Reference>

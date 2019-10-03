@@ -1,16 +1,16 @@
 ManifestFileVersion: 0
-CRC: 2535798417
+CRC: 4001000894
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: black woman
+      Name: 7lw
       Dependencies: {}
     Info_1:
-      Name: 7 layer woman
+      Name: awo
       Dependencies: {}
     Info_2:
-      Name: asian woman
+      Name: bwo
       Dependencies: {}
     Info_3:
-      Name: xzbot
+      Name: xyzbot
       Dependencies: {}
