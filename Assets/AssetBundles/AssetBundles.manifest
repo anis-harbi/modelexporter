@@ -1,16 +1,13 @@
 ManifestFileVersion: 0
-CRC: 4001000894
+CRC: 1917762813
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: 7lw
+      Name: prop
       Dependencies: {}
     Info_1:
-      Name: awo
+      Name: model
       Dependencies: {}
     Info_2:
-      Name: bwo
-      Dependencies: {}
-    Info_3:
-      Name: xyzbot
+      Name: set
       Dependencies: {}

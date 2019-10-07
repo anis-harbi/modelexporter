@@ -10,6 +10,7 @@ using UnityEditor;
 public class CustomImportSettings : AssetPostprocessor
 {
     //float globalScaleModifier = 0.0028f;
+    string humanoidpath = "models";
 
     void OnPreprocessModel()
     {
@@ -26,12 +27,17 @@ public class CustomImportSettings : AssetPostprocessor
         string fileName = importer.assetPath.Substring(fileNamePos + 1, fileExtPos - filePath.Length);
         //extension with "."
         string fileExt = importer.assetPath.Substring(fileExtPos);
-
+        Debug.Log("Importing " + fileName + fileExt + " from " + filePath + "...");
 
 
         //importer.globalScale = globalScaleModifier;
         //importer.importMaterials = false;
-        importer.animationType = ModelImporterAnimationType.Human;
+
+        if (filePath.Contains(humanoidpath))
+        {
+            importer.animationType = ModelImporterAnimationType.Human;
+        }
+
         importer.ExtractTextures(assetPath);
         
         assetImporter.assetBundleName = fileName;
