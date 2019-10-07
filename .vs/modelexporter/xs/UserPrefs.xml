@@ -1,8 +1,9 @@
 ﻿<Properties StartupConfiguration="{DF682C95-CD7A-3F02-A2D5-CF6A204BCFC8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Scripts/Editor/CustomImportSettings.cs">
     <Files>
       <File FileName="Assets/iBEGOOExporter/Resources/materials/materials.txt" Line="1" Column="20" />
       <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="189" Column="6" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CustomImportSettings.cs" Line="30" Column="8" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

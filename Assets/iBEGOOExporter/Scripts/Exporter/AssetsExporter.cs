@@ -79,7 +79,6 @@ public class AssetsExporter : MonoBehaviour
         if (startUploading)
         {
             //Set to false to stop update calls...
-            Debug.Log("should start with paths");
             startUploading = false;
             foreach (string subPath in resourcesSubPaths)
             {
@@ -87,11 +86,6 @@ public class AssetsExporter : MonoBehaviour
             }
 
         }
-
-        if (storage == null)
-        {
-            Debug.Log("storgae is null");
-       }
 
         user = auth.CurrentUser;
         if (user != null)
@@ -136,7 +130,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
                 Firebase.Auth.FirebaseUser newUser = task.Result;
                 Debug.LogFormat("User signed in successfully: {0} ({1})",
                     newUser.DisplayName, newUser.UserId);
-                Debug.Log("should set canvas to false");
                 startUploading = true;
                 if (GameObject.Find("Canvas") != null) { GameObject.Find("Canvas").SetActive(false);  }
 
@@ -214,7 +207,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
             if (fileExt == ".fbx" || fileExt == ".FBX" || fileExt == ".OBJ" || fileExt == ".obj")
 
             {
-                Debug.Log("Found 3D Model File: " + fileName);
                 string uploadStoragePath = "";
                 string storageFileName = fileName;
                 if (subPath == "models") { uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/"; storageFileName = AssetsExporter.modelStorageName;}
@@ -264,7 +256,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
         texture.Apply();
         byte[] bytes = texture.EncodeToPNG();
         string path = AssetsExporter.imagesStorageURL + fileName + ".png";
-        Debug.Log("images path: " + path);
   
         // Create a reference with an initial file path and name
         Firebase.Storage.StorageReference path_reference =
@@ -288,12 +279,11 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
                   // Metadata contains file metadata such as size, content-type, and download URL.
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
-                  Debug.Log("Finished uploading...");
+                  Debug.Log(fileName + " Finished uploading...");
                   // Fetch the download URL
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
                       {
-                          Debug.Log("Download URL: " + getURLtask.Result);
                           AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = getURLtask.Result;
                       }
                   });
@@ -305,9 +295,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
 
     IEnumerator LoadModelForHeadshot(string fileName, string subPath)
 	{
-        //Instantiate model from resources
-        //GameObject model = (GameObject)Intansciate;
-        Debug.Log(fileName);
         yield return new WaitUntil(() => headShotSpaceAvailable == true);
         headShotSpaceAvailable = false;
         GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
@@ -326,11 +313,8 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
 
     protected void UploadAssetBundleToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
     {
-        Debug.Log("filePath : " + filePath);
         byte[] bytes = File.ReadAllBytes(filePath);
-        Debug.Log("bytes : " + bytes.ToString());
         string path = uploadStoragePath;
-        Debug.Log("uplaod path : " + uploadStoragePath);
 
         // Create a reference with an initial file path and name
         Firebase.Storage.StorageReference path_reference =
@@ -349,12 +333,11 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
                   // Metadata contains file metadata such as size, content-type, and download URL.
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
-                  Debug.Log("Finished uploading...");
+                  Debug.Log(fileName + " Finished uploading...");
                   //Debug.Log("download url = " + download_url);
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
                       {
-                          Debug.Log("Download URL: " + getURLtask.Result);
                           AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = getURLtask.Result;
                       }
                   });
@@ -366,11 +349,8 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
 
     protected void UploadOriginalFileToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
     {
-        Debug.Log("filePath : " + filePath);
         byte[] bytes = File.ReadAllBytes(filePath);
-        Debug.Log("bytes : " + bytes.ToString());
         string path = uploadStoragePath;
-        Debug.Log("uplaod path : " + uploadStoragePath);
 
         // Create a reference with an initial file path and name
         Firebase.Storage.StorageReference path_reference =
@@ -389,12 +369,11 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
                   // Metadata contains file metadata such as size, content-type, and download URL.
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
-                  Debug.Log("Finished uploading...");
+                  Debug.Log(fileName + " Finished uploading...");
                   // Fetch the download URL
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
                       {
-                          Debug.Log("Download URL: " + getURLtask.Result);
                           AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = getURLtask.Result;
                       }
                   });
@@ -407,10 +386,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
 
     protected IEnumerator WriteToDatabase(string fileName, string resourceSubPath)
     {
-        Debug.Log("yielding 1: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey]);
-        Debug.Log("yielding 2: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey]);
-        Debug.Log("yielding 3: " + AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey]);
-
         yield return new WaitUntil
         (() =>
             AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey].ToString() != ""
@@ -430,7 +405,6 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         string key = reference.Child(DBref).Push().Key;
         reference.Child(DBref).Child(key).SetRawJsonValueAsync(json);
-        Debug.Log("Finished writing to database: " + AssetsExporter.modelsDict[fileName]);
         //AssetsExporter.modelsDict.Remove(fileName);
         yield return null;
     }

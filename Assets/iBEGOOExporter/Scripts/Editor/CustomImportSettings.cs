@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// Set the scale of all the imported models to  "globalScaleModifier"
-// and dont generate materials for the imported objects
 
 public class CustomImportSettings : AssetPostprocessor
 {
-    //float globalScaleModifier = 0.0028f;
+
     string humanoidpath = "models";
 
     void OnPreprocessModel()
@@ -27,11 +25,7 @@ public class CustomImportSettings : AssetPostprocessor
         string fileName = importer.assetPath.Substring(fileNamePos + 1, fileExtPos - filePath.Length);
         //extension with "."
         string fileExt = importer.assetPath.Substring(fileExtPos);
-        Debug.Log("Importing " + fileName + fileExt + " from " + filePath + "...");
-
-
-        //importer.globalScale = globalScaleModifier;
-        //importer.importMaterials = false;
+      
 
         if (filePath.Contains(humanoidpath))
         {
@@ -39,9 +33,8 @@ public class CustomImportSettings : AssetPostprocessor
         }
 
         importer.ExtractTextures(assetPath);
-        
         assetImporter.assetBundleName = fileName;
-        //AssetBundleCreator.BuildBundles();
+
     }
 }
 #endif
