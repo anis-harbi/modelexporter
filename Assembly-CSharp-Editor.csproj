@@ -62,8 +62,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\Auth.cs" />
     <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\CreateAssetBundles.cs" />
     <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\CustomImportSettings.cs" />
+    <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\EditorWindow.cs" />
     <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\AppDependencies.xml" />
     <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\FirebaseAuth_version-6.2.1_manifest.txt" />
     <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\StorageDependencies.xml" />

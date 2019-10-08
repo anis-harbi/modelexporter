@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CreateAssetBundles
 {
-	[MenuItem("Assets/Build AssetBundles")]
+	[MenuItem("iBEGOO/Build Asset Bundles")]
 	static void BuildAllAssetBundles()
 	{
 		string assetBundleDirectory = "Assets/iBEGOOExporter/AssetBundles";
@@ -15,6 +15,8 @@ public class CreateAssetBundles
 		BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, BuildTarget.iOS);
         AssetDatabase.Refresh();
     }
+
+    
 
 
 }

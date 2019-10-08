@@ -110,6 +110,7 @@ public class AssetsExporter : MonoBehaviour
         {
             headShotSpaceAvailable = true;
         }
+
     }
 
     public void LoginFirebase()
