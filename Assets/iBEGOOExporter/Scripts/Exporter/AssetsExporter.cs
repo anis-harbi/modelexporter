@@ -311,6 +311,12 @@ public class AssetsExporter : MonoBehaviour
 
     protected void UploadAssetBundleToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
     {
+        if (!File.Exists(filePath))
+        {
+            status.SetActive(true);
+            status.GetComponent<Text>().text = "Missing Asset Bundles!";
+            return;
+        }
         byte[] bytes = File.ReadAllBytes(filePath);
         string path = uploadStoragePath;
 
@@ -410,6 +416,7 @@ public class AssetsExporter : MonoBehaviour
         if (writesCount == fileCount)
         {
             status.SetActive(true);
+            slider.value = 1f;
             status.GetComponent<Text>().text = "finished uploading assets";
         }
 
