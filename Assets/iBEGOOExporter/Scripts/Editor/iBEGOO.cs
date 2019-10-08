@@ -10,10 +10,8 @@ public class iBEGOO : EditorWindow
     bool signinReady;
     bool invalidCredentials;
 
-
-
     // Add menu named "My Window" to the Window menu
-    [MenuItem("iBEGOO/Sign in")]
+    [MenuItem("iBEGOO/Sign in", false, 0)]
     static void Init()
     {
         // Get existing open window or if none, make a new one:
