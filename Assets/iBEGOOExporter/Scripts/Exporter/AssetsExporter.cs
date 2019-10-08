@@ -15,10 +15,13 @@ public class AssetsExporter : MonoBehaviour
 {
     Firebase.Auth.FirebaseAuth auth;
     Firebase.Auth.FirebaseUser user;
-    bool startUploading = false;
+
+    bool readyToUpload = false;
+    bool startedUploading = false;
+
     Firebase.Storage.FirebaseStorage storage;
 
-    public GameObject canvas;
+ 
     public InputField emailInputField;
     public InputField passwordInputField;
 
@@ -64,8 +67,9 @@ public class AssetsExporter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas.SetActive(true);
+
         InitializeFirebase();
+       
 
 
 
@@ -76,10 +80,10 @@ public class AssetsExporter : MonoBehaviour
     void Update()
     {
 
-        if (startUploading)
+        if (readyToUpload && !startedUploading)
         {
             //Set to false to stop update calls...
-            startUploading = false;
+            startedUploading = true;
             foreach (string subPath in resourcesSubPaths)
             {
                 ExportFiles(subPath);
@@ -98,6 +102,7 @@ public class AssetsExporter : MonoBehaviour
             // have one; use User.TokenAsync() instead.
             string uid = user.UserId;
             Debug.Log(userName + " signed in...");
+            readyToUpload = true;
 
         }
         else
@@ -113,33 +118,6 @@ public class AssetsExporter : MonoBehaviour
 
     }
 
-    public void LoginFirebase()
-    {
-        string emailInputvalue = emailInputField.text;
-        string passwordInputvalue = passwordInputField.text;
-
-        Firebase.Auth.Credential credential =
-Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalue);
-        auth.SignInWithCredentialAsync(credential).ContinueWith(task => {
-            if (task.IsCanceled || task.IsFaulted)
-            {
-                Debug.LogError("SignInWithCredentialAsync was unsuccessful.");
-                return;
-            }
-            else
-            {
-                Firebase.Auth.FirebaseUser newUser = task.Result;
-                Debug.LogFormat("User signed in successfully: {0} ({1})",
-                    newUser.DisplayName, newUser.UserId);
-                startUploading = true;
-                if (GameObject.Find("Canvas") != null) { GameObject.Find("Canvas").SetActive(false);  }
-
-
-            }
-
-        });
-
-    }
 
     // Handle initialization of the necessary firebase modules:
     void InitializeFirebase()
@@ -172,8 +150,7 @@ Firebase.Auth.EmailAuthProvider.GetCredential(emailInputvalue, passwordInputvalu
             user = auth.CurrentUser;
             if (signedIn)
             {
-                startUploading = true;
-                if (GameObject.Find("Canvas") != null) { GameObject.Find("Canvas").SetActive(false); }
+               
                 Debug.Log("Signed in " + user.UserId);
             }
         }
