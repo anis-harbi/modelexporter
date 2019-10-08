@@ -55,7 +55,16 @@ public class AssetsExporter : MonoBehaviour
 
     Dictionary<string, string> thumbnails = new Dictionary<string, string>();
     public GameObject modelsParent;
+    public GameObject status;
+    public Slider slider;
     bool headShotSpaceAvailable;
+    Dictionary<int, bool> headshotSpaceAvailibilty = new Dictionary<int, bool>();
+
+
+    int progress = 0;
+    int total = 1;
+    int fileCount = 0;
+    int writesCount = 0;
 
 
     private void Awake()
@@ -69,6 +78,7 @@ public class AssetsExporter : MonoBehaviour
     {
 
         InitializeFirebase();
+        headshotSpaceAvailibilty[0] = true;
        
 
 
@@ -80,10 +90,16 @@ public class AssetsExporter : MonoBehaviour
     void Update()
     {
 
+        slider.value  = ((float)progress / (float)total);
+       
+
         if (readyToUpload && !startedUploading)
         {
             //Set to false to stop update calls...
             startedUploading = true;
+
+            int subPathsCount = resourcesSubPaths.Length;
+
             foreach (string subPath in resourcesSubPaths)
             {
                 ExportFiles(subPath);
@@ -101,20 +117,17 @@ public class AssetsExporter : MonoBehaviour
             // Do NOT use this value to authenticate with your backend     server, if you
             // have one; use User.TokenAsync() instead.
             string uid = user.UserId;
-            Debug.Log(userName + " signed in...");
+
             readyToUpload = true;
 
         }
         else
         {
-            Debug.Log("User not signed in...");
+
 
         }
 
-        if (modelsParent.transform.childCount == 0)
-        {
-            headShotSpaceAvailable = true;
-        }
+
 
     }
 
@@ -123,7 +136,6 @@ public class AssetsExporter : MonoBehaviour
     void InitializeFirebase()
     {
 
-        Debug.Log("Setting up Firebase Auth");
         auth = Firebase.Auth.FirebaseAuth.DefaultInstance;
         auth.StateChanged += AuthStateChanged;
         AuthStateChanged(this, null);
@@ -166,6 +178,7 @@ public class AssetsExporter : MonoBehaviour
     {
         var info = new DirectoryInfo("Assets/iBEGOOExporter/Resources/" + subPath);
         var fileInfo = info.GetFiles();
+
         foreach (FileInfo file in fileInfo)
         {
 
@@ -185,6 +198,8 @@ public class AssetsExporter : MonoBehaviour
             if (fileExt == ".fbx" || fileExt == ".FBX" || fileExt == ".OBJ" || fileExt == ".obj")
 
             {
+                total += 3;
+
                 string uploadStoragePath = "";
                 string storageFileName = fileName;
                 if (subPath == "models") { uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/"; storageFileName = AssetsExporter.modelStorageName;}
@@ -199,18 +214,19 @@ public class AssetsExporter : MonoBehaviour
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = "";
-
                 StartCoroutine(WriteToDatabase(fileName,subPath));
-                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, "", false);
+                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, "",  fileCount);
+                fileCount += 1;
+                headshotSpaceAvailibilty[fileCount] = false;
             }
         }
 
     }
 
-    protected void UploadFileTo(string fileName, string fileExt, string filePath,string subPath, string uploadStoragePath, string storageFileName, string fileTag, bool isBundle)
+    protected void UploadFileTo(string fileName, string fileExt, string filePath,string subPath, string uploadStoragePath, string storageFileName, string fileTag, int fileCount)
 	{
         //Get screenshot and upload image
-        StartCoroutine(LoadModelForHeadshot(fileName, subPath));
+        StartCoroutine(LoadModelForHeadshot(fileName, subPath, fileCount));
 
         //Upload Original FBX to DB
         string originalFilePath = filePath + fileExt;
@@ -258,6 +274,7 @@ public class AssetsExporter : MonoBehaviour
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
                   Debug.Log(fileName + " Finished uploading...");
+                  progress += 1;
                   // Fetch the download URL
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
@@ -271,10 +288,11 @@ public class AssetsExporter : MonoBehaviour
           
     }
 
-    IEnumerator LoadModelForHeadshot(string fileName, string subPath)
+    IEnumerator LoadModelForHeadshot(string fileName, string subPath, int count)
 	{
-        yield return new WaitUntil(() => headShotSpaceAvailable == true);
-        headShotSpaceAvailable = false;
+      
+        yield return new WaitUntil(() => headshotSpaceAvailibilty[count] == true);
+        
         GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
         model.transform.SetParent(modelsParent.transform);
         Vector3 modelRotation = Vector3.zero;
@@ -284,7 +302,9 @@ public class AssetsExporter : MonoBehaviour
         model.transform.localRotation = Quaternion.Euler(modelRotation);
         yield return new WaitForEndOfFrame();
         GrabPixelsOnPostRender(fileName);
+        yield return new WaitForEndOfFrame();
         Destroy(model);
+        headshotSpaceAvailibilty[count + 1] = true;
 
 
     }
@@ -312,6 +332,7 @@ public class AssetsExporter : MonoBehaviour
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
                   Debug.Log(fileName + " Finished uploading...");
+                  progress += 1;
                   //Debug.Log("download url = " + download_url);
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
@@ -348,6 +369,7 @@ public class AssetsExporter : MonoBehaviour
                   Firebase.Storage.StorageMetadata metadata = task.Result;
                   //string download_url = metadata.DownloadUrl.ToString();
                   Debug.Log(fileName + " Finished uploading...");
+                  progress += 1;
                   // Fetch the download URL
                   path_reference.GetDownloadUrlAsync().ContinueWith((Task<Uri> getURLtask) => {
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
@@ -383,7 +405,14 @@ public class AssetsExporter : MonoBehaviour
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         string key = reference.Child(DBref).Push().Key;
         reference.Child(DBref).Child(key).SetRawJsonValueAsync(json);
+        writesCount += 1;
         //AssetsExporter.modelsDict.Remove(fileName);
+        if (writesCount == fileCount)
+        {
+            status.SetActive(true);
+            status.GetComponent<Text>().text = "finished uploading assets";
+        }
+
         yield return null;
     }
 

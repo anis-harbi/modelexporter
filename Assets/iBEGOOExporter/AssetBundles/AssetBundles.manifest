@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3398443333
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: xyzbot
+      Dependencies: {}
+    Info_1:
+      Name: prop
+      Dependencies: {}
+    Info_2:
+      Name: model
+      Dependencies: {}
+    Info_3:
+      Name: set
+      Dependencies: {}
+    Info_4:
+      Name: debate stage
+      Dependencies: {}

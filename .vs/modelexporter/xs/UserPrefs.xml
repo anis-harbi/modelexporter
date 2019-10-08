@@ -1,12 +1,13 @@
 ﻿<Properties StartupConfiguration="{DF682C95-CD7A-3F02-A2D5-CF6A204BCFC8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Scripts/Editor/Auth.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Resources/models/models.txt">
     <Files>
       <File FileName="Assets/iBEGOOExporter/Resources/materials/materials.txt" Line="1" Column="20" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="142" Column="6" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="83" Column="5" />
       <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CustomImportSettings.cs" Line="37" Column="9" />
       <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CreateAssetBundles.cs" Line="7" Column="39" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/EditorWindow.cs" Line="29" Column="13" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/Auth.cs" Line="5" Column="8" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/iBEGOO.cs" Line="69" Column="48" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/Auth.cs" Line="44" Column="5" />
+      <File FileName="Assets/iBEGOOExporter/Resources/models/models.txt" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
