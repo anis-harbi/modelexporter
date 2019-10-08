@@ -5,11 +5,8 @@ public class iBEGOO : EditorWindow
 {
     string email = "";
     string password = "";
-    string authButtonText = "";
-    bool groupEnabled;
-    bool myBool = true;
-    float myFloat = 1.24f;
-    bool showButton = true;
+
+
     bool signinReady;
     bool invalidCredentials;
 
