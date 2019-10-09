@@ -2,42 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class LoadAssetBundles : MonoBehaviour
 {
-     void Start()
-    {
-        StartCoroutine(GetAssetBundle());
+
+    public IEnumerator GetAssetBundle(string bundleUrl) {
+        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+            yield return null;
+        }
+        else
+        {
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+            Object[] prefabs = bundle.LoadAllAssets();
+            yield return prefabs;
+        }
     }
 
-
-    // Start is called before the first frame update
-    string baseBundleURL = @"https://raw.githubusercontent.com/guotata1996/AssetsBundleTest/master/UnityBundles/";
-    public string assetName;
-    AssetBundle bundle;
-
-    public Text bundleNameInput;
-
-    IEnumerator GetAssetBundle() {
-        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle("https://firebasestorage.googleapis.com/v0/b/ibegoo-dev.appspot.com/o/assetMedia%2Fmodels%2Fmodel%2Fmodel?alt=media&token=960399c1-b73c-4e56-be72-1a1ca7d2b73f");
+    public IEnumerator DownloadAssetBundle(string bundleUrl)
+    {
+        UnityWebRequest www = UnityWebRequestAssetBundle.GetAssetBundle(bundleUrl);
         yield return www.SendWebRequest();
- 
-        if(www.isNetworkError || www.isHttpError) {
+
+        if (www.isNetworkError || www.isHttpError)
+        {
             Debug.Log(www.error);
         }
-        else {
-            bundle = DownloadHandlerAssetBundle.GetContent(www);
-            var prefabs = bundle.LoadAllAssets();
-            foreach(var prefab in prefabs){
-                Instantiate(prefab);
-            }
+        else
+        {
+            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
+            Object[] prefabs = bundle.LoadAllAssets();
         }
     }
 
-    public void UpdateBundle()
+    public void DownloadAssetBundles(List<string> bundleUrls)
     {
-        StartCoroutine(GetAssetBundle());
+        foreach (string bundleUrl in bundleUrls)
+        {
+            StartCoroutine(DownloadAssetBundle(bundleUrl));
+        }
     }
 
 }

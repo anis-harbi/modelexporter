@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class AssetsExporter : MonoBehaviour
 {
@@ -18,17 +19,17 @@ public class AssetsExporter : MonoBehaviour
 
     bool readyToUpload = false;
     bool startedUploading = false;
+    bool isFinished = false;
 
     Firebase.Storage.FirebaseStorage storage;
 
- 
-    public InputField emailInputField;
-    public InputField passwordInputField;
+
 
     public static string databaseURL = "https://ibegoo-dev.firebaseio.com/";
     //public static string databaseURL = "https://late-night-show.firebaseio.com/";
 
     //Storage Paths and Keys
+    public static string bundlesStorageUrl = "assetMedia/bundles/";
     public static string modelsStorageURL = "assetMedia/models/";
     public static string propsStorageURL = "assetMedia/props/";
     public static string setsStorageURL = "assetMedia/sets/";
@@ -51,12 +52,12 @@ public class AssetsExporter : MonoBehaviour
     public static Dictionary<string, JObject> modelsDict = new Dictionary<string, JObject>();
 
 
-    string[] resourcesSubPaths = {"models","props","sets"};
+    string[] resourcesSubPaths = { "models", "props", "sets" };
 
     Dictionary<string, string> thumbnails = new Dictionary<string, string>();
     public GameObject modelsParent;
     public GameObject status;
-    public Slider slider;
+    public GameObject slider;
     bool headShotSpaceAvailable;
     Dictionary<int, bool> headshotSpaceAvailibilty = new Dictionary<int, bool>();
 
@@ -79,10 +80,7 @@ public class AssetsExporter : MonoBehaviour
 
         InitializeFirebase();
         headshotSpaceAvailibilty[0] = true;
-       
-
-
-
+        slider.SetActive(true);
 
     }
 
@@ -90,8 +88,12 @@ public class AssetsExporter : MonoBehaviour
     void Update()
     {
 
-        slider.value  = ((float)progress / (float)total);
-       
+        if (!isFinished)
+        {
+            slider.GetComponent<Slider>().value = ((float)progress / (float)total);
+        }
+
+
 
         if (readyToUpload && !startedUploading)
         {
@@ -162,7 +164,7 @@ public class AssetsExporter : MonoBehaviour
             user = auth.CurrentUser;
             if (signedIn)
             {
-               
+
                 Debug.Log("Signed in " + user.UserId);
             }
         }
@@ -202,7 +204,7 @@ public class AssetsExporter : MonoBehaviour
 
                 string uploadStoragePath = "";
                 string storageFileName = fileName;
-                if (subPath == "models") { uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/"; storageFileName = AssetsExporter.modelStorageName;}
+                if (subPath == "models") { uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/"; storageFileName = AssetsExporter.modelStorageName; }
                 if (subPath == "props") { uploadStoragePath = AssetsExporter.propsStorageURL; }
                 if (subPath == "sets") { uploadStoragePath = AssetsExporter.setsStorageURL; }
 
@@ -214,8 +216,8 @@ public class AssetsExporter : MonoBehaviour
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBImageKey][AssetsExporter.modelDBImageURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = "";
-                StartCoroutine(WriteToDatabase(fileName,subPath));
-                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, "",  fileCount);
+                StartCoroutine(WriteToDatabase(fileName, subPath));
+                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, "", fileCount);
                 fileCount += 1;
                 headshotSpaceAvailibilty[fileCount] = false;
             }
@@ -223,23 +225,24 @@ public class AssetsExporter : MonoBehaviour
 
     }
 
-    protected void UploadFileTo(string fileName, string fileExt, string filePath,string subPath, string uploadStoragePath, string storageFileName, string fileTag, int fileCount)
-	{
+    protected void UploadFileTo(string fileName, string fileExt, string filePath, string subPath, string uploadStoragePath, string storageFileName, string fileTag, int fileCount)
+    {
         //Get screenshot and upload image
         StartCoroutine(LoadModelForHeadshot(fileName, subPath, fileCount));
 
         //Upload Original FBX to DB
         string originalFilePath = filePath + fileExt;
 
-        UploadOriginalFileToStorage(fileName, filePath + fileName +fileExt, uploadStoragePath + storageFileName + fileExt.ToLower(), fileTag);
+        UploadOriginalFileToStorage(fileName, filePath + fileName + fileExt, uploadStoragePath + storageFileName + fileExt.ToLower(), fileTag);
 
         //Upload Asset Bundle to DB
         string[] stringSeparators = new string[] { "Assets/iBEGOOExporter/Resources" };
         string[] splittingResult = filePath.Split(stringSeparators, StringSplitOptions.None);
-        string assetBundleFilePath = splittingResult[0] +  "Assets/iBEGOOExporter/AssetBundles" + "/" + fileName.ToLower();
-        UploadAssetBundleToStorage(fileName, assetBundleFilePath, uploadStoragePath + fileName.ToLower() , fileTag);
+        string assetBundleFilePath = splittingResult[0] + "Assets/iBEGOOExporter/AssetBundles" + "/" + fileName.ToLower();
+        string assetBundleStoragePath = AssetsExporter.bundlesStorageUrl;
+        UploadAssetBundleToStorage(fileName, assetBundleFilePath, assetBundleStoragePath + fileName.ToLower(), fileTag);
 
-	}
+    }
 
     protected void GrabPixelsOnPostRender(string fileName)
     {
@@ -250,7 +253,7 @@ public class AssetsExporter : MonoBehaviour
         texture.Apply();
         byte[] bytes = texture.EncodeToPNG();
         string path = AssetsExporter.imagesStorageURL + fileName + ".png";
-  
+
         // Create a reference with an initial file path and name
         Firebase.Storage.StorageReference path_reference =
           storage.GetReference(path);
@@ -285,14 +288,14 @@ public class AssetsExporter : MonoBehaviour
 
               }
           });
-          
+
     }
 
     IEnumerator LoadModelForHeadshot(string fileName, string subPath, int count)
-	{
-      
+    {
+
         yield return new WaitUntil(() => headshotSpaceAvailibilty[count] == true);
-        
+
         GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
         model.transform.SetParent(modelsParent.transform);
         Vector3 modelRotation = Vector3.zero;
@@ -402,9 +405,9 @@ public class AssetsExporter : MonoBehaviour
         );
 
         string DBref = "";
-        if (resourceSubPath == "models"){DBref = AssetsExporter.modelsDBPath;}
+        if (resourceSubPath == "models") { DBref = AssetsExporter.modelsDBPath; }
         if (resourceSubPath == "props") { DBref = AssetsExporter.propsDBPath; }
-        if (resourceSubPath == "sets") { DBref = AssetsExporter.setDesignsDBPath;}
+        if (resourceSubPath == "sets") { DBref = AssetsExporter.setDesignsDBPath; }
 
         string json = AssetsExporter.modelsDict[fileName].ToString();
         // Get the root reference location of the database.
@@ -415,9 +418,12 @@ public class AssetsExporter : MonoBehaviour
         //AssetsExporter.modelsDict.Remove(fileName);
         if (writesCount == fileCount)
         {
+            isFinished = true;
             status.SetActive(true);
-            slider.value = 1f;
+            slider.GetComponent<Slider>().value = 1f;
             status.GetComponent<Text>().text = "finished uploading assets";
+            Debug.Log("Finished Uploading Assets");
+            EditorApplication.isPlaying = false;
         }
 
         yield return null;
