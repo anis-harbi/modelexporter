@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/iBEGOOExporter/Scenes/iBegoo3DExporter.unity
+- path: Assets/iBEGOOImporter/Scenes/iBEGOOImportScene.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

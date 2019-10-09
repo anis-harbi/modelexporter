@@ -34,8 +34,7 @@ public class LoadAssetBundles : MonoBehaviour
         }
         else
         {
-            AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(www);
-            Object[] prefabs = bundle.LoadAllAssets();
+            //bundle is cached
         }
     }
 
