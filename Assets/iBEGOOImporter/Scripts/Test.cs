@@ -9,7 +9,7 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string test = "vdfvfdvdf   fdvd   https://firebasestorage.googleapis.com/v0/b/ibegoo-dev.appspot.com/o/assetMedia%2Fbundles%2Fprop?alt=media&token=a9c340de-bc0e-43b3-9ecb-e2eaa9fb0ad2    ";
+        string test = "https://firebasestorage.googleapis.com/v0/b/ibegoo-dev.appspot.com/o/assetMedia%2Fbundles%2Fspaceshiptvhead?alt=media&token=8b1cd2ca-04e0-4ca2-8cf0-5aac98c3f847";
         List<string> urls = Parser.GetUrls(test);
         urls = Parser.GetUrlsContaining(urls, "firebase");
         urlsy = urls;
@@ -34,15 +34,41 @@ public class Test : MonoBehaviour
 
             CoroutineWithData cd = new CoroutineWithData(this, gam.GetComponent<LoadAssetBundles>().GetAssetBundle(u));
             yield return cd.coroutine;
+
+            GameObject temp = new GameObject();
             foreach (var prefab in (Object[])cd.result)
             {
-                Instantiate(prefab);
+
+
+                if (prefab.GetType() == temp.GetType())
+                {
+                    temp = Instantiate(prefab) as GameObject;
+
+                    temp.name = "temptemp";
+                    Debug.Log(temp.name);
+                    Debug.Log(temp.GetComponent<Animator>());
+                    Animator animator = temp.GetComponent<Animator>();
+                    Debug.Log("loading animator");
+                    Debug.Log(animator);
+                    Debug.Log("lopad" + Resources.Load("animations/testAnimator"));
+                    animator.runtimeAnimatorController = Resources.Load("animations/WomanControl") as RuntimeAnimatorController;
+                    if (animator.runtimeAnimatorController != null)// this check eliminiated the warning message
+                    { Debug.Log("not null");
+                        animator.enabled = true;
+                        animator.Play("Dancing");
+                    }
+                }
+                //
             }
+
         }
     }
+
+
     // Update is called once per frame
     void Update()
     {
-        
+        //Debug.Log(Time.time);
     }
+
 }

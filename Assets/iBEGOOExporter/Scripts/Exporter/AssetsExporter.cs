@@ -101,6 +101,7 @@ public class AssetsExporter : MonoBehaviour
             startedUploading = true;
 
             int subPathsCount = resourcesSubPaths.Length;
+            
 
             foreach (string subPath in resourcesSubPaths)
             {
@@ -176,6 +177,8 @@ public class AssetsExporter : MonoBehaviour
         auth = null;
     }
 
+
+
     protected void ExportFiles(string subPath)
     {
         var info = new DirectoryInfo("Assets/iBEGOOExporter/Resources/" + subPath);
@@ -197,7 +200,7 @@ public class AssetsExporter : MonoBehaviour
             string fileExt = file.ToString().Substring(fileExtPos);
 
 
-            if (fileExt == ".fbx" || fileExt == ".FBX" || fileExt == ".OBJ" || fileExt == ".obj")
+            if (fileExt.ToLower().Contains(".fbx"))
 
             {
                 total += 3;
@@ -217,7 +220,7 @@ public class AssetsExporter : MonoBehaviour
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = "";
                 StartCoroutine(WriteToDatabase(fileName, subPath));
-                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, "", fileCount);
+                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, fileCount);
                 fileCount += 1;
                 headshotSpaceAvailibilty[fileCount] = false;
             }
@@ -225,7 +228,7 @@ public class AssetsExporter : MonoBehaviour
 
     }
 
-    protected void UploadFileTo(string fileName, string fileExt, string filePath, string subPath, string uploadStoragePath, string storageFileName, string fileTag, int fileCount)
+    protected void UploadFileTo(string fileName, string fileExt, string filePath, string subPath, string uploadStoragePath, string storageFileName,  int fileCount)
     {
         //Get screenshot and upload image
         StartCoroutine(LoadModelForHeadshot(fileName, subPath, fileCount));
@@ -233,14 +236,14 @@ public class AssetsExporter : MonoBehaviour
         //Upload Original FBX to DB
         string originalFilePath = filePath + fileExt;
 
-        UploadOriginalFileToStorage(fileName, filePath + fileName + fileExt, uploadStoragePath + storageFileName + fileExt.ToLower(), fileTag);
+        UploadOriginalFileToStorage(fileName, filePath + fileName + fileExt, uploadStoragePath + storageFileName + fileExt.ToLower());
 
         //Upload Asset Bundle to DB
         string[] stringSeparators = new string[] { "Assets/iBEGOOExporter/Resources" };
         string[] splittingResult = filePath.Split(stringSeparators, StringSplitOptions.None);
         string assetBundleFilePath = splittingResult[0] + "Assets/iBEGOOExporter/AssetBundles" + "/" + fileName.ToLower();
         string assetBundleStoragePath = AssetsExporter.bundlesStorageUrl;
-        UploadAssetBundleToStorage(fileName, assetBundleFilePath, assetBundleStoragePath + fileName.ToLower(), fileTag);
+        UploadAssetBundleToStorage(fileName, assetBundleFilePath, assetBundleStoragePath + fileName.ToLower());
 
     }
 
@@ -312,7 +315,7 @@ public class AssetsExporter : MonoBehaviour
 
     }
 
-    protected void UploadAssetBundleToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
+    protected void UploadAssetBundleToStorage(string fileName, string filePath, string uploadStoragePath)
     {
         if (!File.Exists(filePath))
         {
@@ -347,6 +350,7 @@ public class AssetsExporter : MonoBehaviour
                       if (!getURLtask.IsFaulted && !getURLtask.IsCanceled)
                       {
                           AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = getURLtask.Result;
+                          Debug.Log(getURLtask.Result);
                       }
                   });
               }
@@ -355,7 +359,7 @@ public class AssetsExporter : MonoBehaviour
 
     }
 
-    protected void UploadOriginalFileToStorage(string fileName, string filePath, string uploadStoragePath, string fileTag)
+    protected void UploadOriginalFileToStorage(string fileName, string filePath, string uploadStoragePath)
     {
         byte[] bytes = File.ReadAllBytes(filePath);
         string path = uploadStoragePath;
@@ -423,7 +427,7 @@ public class AssetsExporter : MonoBehaviour
             slider.GetComponent<Slider>().value = 1f;
             status.GetComponent<Text>().text = "finished uploading assets";
             Debug.Log("Finished Uploading Assets");
-            EditorApplication.isPlaying = false;
+
         }
 
         yield return null;

@@ -1,17 +1,19 @@
 ﻿<Properties StartupConfiguration="{DF682C95-CD7A-3F02-A2D5-CF6A204BCFC8}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOImporter/Scripts/CoroutineWithData.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Scripts/Editor/ClearShaderCache.cs">
     <Files>
       <File FileName="Assets/iBEGOOExporter/Resources/materials/materials.txt" Line="1" Column="1" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="26" Column="5" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CustomImportSettings.cs" Line="37" Column="9" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CreateAssetBundles.cs" Line="7" Column="39" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/iBEGOO.cs" Line="51" Column="79" />
-      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/Auth.cs" Line="44" Column="5" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="430" Column="13" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CustomImportSettings.cs" Line="49" Column="19" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/CreateAssetBundles.cs" Line="18" Column="5" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/iBEGOO.cs" Line="68" Column="1" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/Auth.cs" Line="44" Column="1" />
       <File FileName="Assets/iBEGOOExporter/Resources/models/models.txt" Line="1" Column="1" />
-      <File FileName="Assets/iBEGOOImporter/Scripts/LoadAssetBundles.cs" Line="38" Column="5" />
-      <File FileName="Assets/iBEGOOImporter/Scripts/Parser.cs" Line="44" Column="1" />
-      <File FileName="Assets/iBEGOOImporter/Scripts/Test.cs" Line="27" Column="1" />
-      <File FileName="Assets/iBEGOOImporter/Scripts/CoroutineWithData.cs" Line="4" Column="1" />
+      <File FileName="Assets/iBEGOOImporter/Scripts/LoadAssetBundles.cs" Line="38" Column="10" />
+      <File FileName="Assets/iBEGOOImporter/Scripts/Parser.cs" Line="43" Column="2" />
+      <File FileName="Assets/iBEGOOImporter/Scripts/Test.cs" Line="54" Column="97" />
+      <File FileName="Assets/iBEGOOImporter/Scripts/CoroutineWithData.cs" Line="17" Column="1" />
+      <File FileName="Assets/iBEGOOExporter/AssetBundles/spaceshiptvhead.meta" Line="1" Column="1" />
+      <File FileName="Assets/iBEGOOExporter/Scripts/Editor/ClearShaderCache.cs" Line="18" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
