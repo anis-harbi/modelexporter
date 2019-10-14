@@ -16,7 +16,7 @@ public class CustomImportSettings : AssetPostprocessor
 
     void OnPreprocessAsset()
     {
-       
+        PlayerSettings.stripUnusedMeshComponents = false;
         AssetImporter importer = (AssetImporter)assetImporter;
         if (importer.assetPath.Contains("iBEGOOExporter/Resources"))
         {

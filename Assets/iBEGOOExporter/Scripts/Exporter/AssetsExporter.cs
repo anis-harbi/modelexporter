@@ -427,7 +427,7 @@ public class AssetsExporter : MonoBehaviour
             status.SetActive(true);
             slider.GetComponent<Slider>().value = 1f;
             status.GetComponent<Text>().text = "finished uploading assets";
-            Debug.Log("Finished Uploading Assets");
+            Debug.Log("Assets upload completed sccessfully");
 
         }
 
