@@ -3,14 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using UnityEngine.Rendering;
 
 public class CustomImportSettings : AssetPostprocessor
 {
 
     string humanoidpath = "models";
 
-    void OnPreprocessModel()
+
+
+
+
+    void OnPreprocessAsset()
     {
        
         AssetImporter importer = (AssetImporter)assetImporter;
@@ -32,13 +36,17 @@ public class CustomImportSettings : AssetPostprocessor
                 string fileExt = importer.assetPath.Substring(fileExtPos);
 
 
-                if (filePath.Contains(humanoidpath) && fileExt.ToLower().Contains("fbx"))
+                if (filePath.ToLower().Contains(humanoidpath) && fileExt.ToLower().Contains("fbx"))
                 {
                     ModelImporter modelImporter = (ModelImporter)importer;
                     modelImporter.animationType = ModelImporterAnimationType.Human;
                     modelImporter.ExtractTextures(assetPath);
                 }
-                assetImporter.assetBundleName = fileName;
+                if ((filePath.ToLower().Contains("props") || filePath.ToLower().Contains("sets") || filePath.ToLower().Contains("models")) && fileExt.ToLower().Contains("prefab")) 
+                {  
+                    assetImporter.assetBundleName = fileName;
+                }
+
             }
             catch
             {
@@ -54,7 +62,44 @@ public class CustomImportSettings : AssetPostprocessor
         }
 
 
+        AddAlwaysIncludedShader("Standard");
 
+
+
+
+    }
+
+    public static void AddAlwaysIncludedShader(string shaderName)
+    {
+        var shader = Shader.Find(shaderName);
+        if (shader == null)
+            return;
+
+        var graphicsSettingsObj = AssetDatabase.LoadAssetAtPath<GraphicsSettings>("ProjectSettings/GraphicsSettings.asset");
+        var serializedObject = new SerializedObject(graphicsSettingsObj);
+        var arrayProp = serializedObject.FindProperty("m_AlwaysIncludedShaders");
+        bool hasShader = false;
+        for (int i = 0; i < arrayProp.arraySize; ++i)
+        {
+            var arrayElem = arrayProp.GetArrayElementAtIndex(i);
+            if (shader == arrayElem.objectReferenceValue)
+            {
+                hasShader = true;
+                break;
+            }
+        }
+
+        if (!hasShader)
+        {
+            int arrayIndex = arrayProp.arraySize;
+            arrayProp.InsertArrayElementAtIndex(arrayIndex);
+            var arrayElem = arrayProp.GetArrayElementAtIndex(arrayIndex);
+            arrayElem.objectReferenceValue = shader;
+
+            serializedObject.ApplyModifiedProperties();
+
+            AssetDatabase.SaveAssets();
+        }
     }
 
 

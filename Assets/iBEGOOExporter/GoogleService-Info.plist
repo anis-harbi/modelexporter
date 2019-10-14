@@ -3,34 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>90243678326-oa0l6cqbsc7h5o59ntnnl7lkm3t9vbpn.apps.googleusercontent.com</string>
+	<string>446085254058-ocq5denlf5ds26jai0pe6376kgtrq7a8.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.90243678326-oa0l6cqbsc7h5o59ntnnl7lkm3t9vbpn</string>
+	<string>com.googleusercontent.apps.446085254058-ocq5denlf5ds26jai0pe6376kgtrq7a8</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDqX8nlrfLMkwtPkQLYY-IUm6Nq-aWJTy0</string>
+	<string>AIzaSyDn6S6esulcrMxomcy__lYNrf2dFIU57s8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>90243678326</string>
+	<string>446085254058</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>cgui.amir.latenightshow</string>
 	<key>PROJECT_ID</key>
-	<string>ibegoo-dev</string>
+	<string>late-night-show</string>
 	<key>STORAGE_BUCKET</key>
-	<string>ibegoo-dev.appspot.com</string>
+	<string>late-night-show.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:90243678326:ios:13937cfca8db870a0a1f57</string>
+	<string>1:446085254058:ios:29658704d3b50627</string>
 	<key>DATABASE_URL</key>
-	<string>https://ibegoo-dev.firebaseio.com</string>
+	<string>https://late-night-show.firebaseio.com</string>
 </dict>
 </plist>

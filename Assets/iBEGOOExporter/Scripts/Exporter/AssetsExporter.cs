@@ -25,8 +25,8 @@ public class AssetsExporter : MonoBehaviour
 
 
 
-    public static string databaseURL = "https://ibegoo-dev.firebaseio.com/";
-    //public static string databaseURL = "https://late-night-show.firebaseio.com/";
+    // static string databaseURL = "https://ibegoo-dev.firebaseio.com/";
+    public static string databaseURL = "https://late-night-show.firebaseio.com/";
 
     //Storage Paths and Keys
     public static string bundlesStorageUrl = "assetMedia/bundles/";
@@ -200,7 +200,7 @@ public class AssetsExporter : MonoBehaviour
             string fileExt = file.ToString().Substring(fileExtPos);
 
 
-            if (fileExt.ToLower().Contains(".fbx"))
+            if (fileExt.ToLower().Contains(".prefab"))
 
             {
                 total += 3;
@@ -301,6 +301,7 @@ public class AssetsExporter : MonoBehaviour
 
         GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
         model.transform.SetParent(modelsParent.transform);
+        model.transform.localPosition = Vector3.zero;
         Vector3 modelRotation = Vector3.zero;
         modelRotation.x = model.transform.localRotation.x;
         modelRotation.y = model.transform.localRotation.y + 180f;

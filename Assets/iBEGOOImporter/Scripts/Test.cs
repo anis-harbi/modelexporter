@@ -9,7 +9,7 @@ public class Test : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        string test = "https://firebasestorage.googleapis.com/v0/b/ibegoo-dev.appspot.com/o/assetMedia%2Fbundles%2Fspaceshiptvhead?alt=media&token=8b1cd2ca-04e0-4ca2-8cf0-5aac98c3f847";
+        string test = "https://firebasestorage.googleapis.com/v0/b/ibegoo-dev.appspot.com/o/assetMedia%2Fanimators%2Fspaceshiptvhead?alt=media&token=234904ee-4e6d-4eb5-8e95-581c83c0084e";
         List<string> urls = Parser.GetUrls(test);
         urls = Parser.GetUrlsContaining(urls, "firebase");
         urlsy = urls;
@@ -39,7 +39,7 @@ public class Test : MonoBehaviour
             foreach (var prefab in (Object[])cd.result)
             {
 
-
+                Debug.Log(prefab.GetType());
                 if (prefab.GetType() == temp.GetType())
                 {
                     temp = Instantiate(prefab) as GameObject;
@@ -68,7 +68,7 @@ public class Test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(Time.time);
+        Debug.Log(Time.time);
     }
 
 }

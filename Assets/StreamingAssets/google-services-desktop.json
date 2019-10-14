@@ -11,16 +11,16 @@
       }, 
       "oauth_client": [
         {
-          "client_id": "90243678326-oa0l6cqbsc7h5o59ntnnl7lkm3t9vbpn.apps.googleusercontent.com"
+          "client_id": "446085254058-ocq5denlf5ds26jai0pe6376kgtrq7a8.apps.googleusercontent.com"
         }
       ], 
       "api_key": [
         {
-          "current_key": "AIzaSyDqX8nlrfLMkwtPkQLYY-IUm6Nq-aWJTy0"
+          "current_key": "AIzaSyDn6S6esulcrMxomcy__lYNrf2dFIU57s8"
         }
       ], 
       "client_info": {
-        "mobilesdk_app_id": "1:90243678326:ios:13937cfca8db870a0a1f57", 
+        "mobilesdk_app_id": "1:446085254058:ios:29658704d3b50627", 
         "android_client_info": {
           "package_name": "cgui.amir.latenightshow"
         }
@@ -29,9 +29,9 @@
   ], 
   "configuration_version": "1", 
   "project_info": {
-    "storage_bucket": "ibegoo-dev.appspot.com", 
-    "project_id": "ibegoo-dev", 
-    "firebase_url": "https://ibegoo-dev.firebaseio.com", 
-    "project_number": "90243678326"
+    "storage_bucket": "late-night-show.appspot.com", 
+    "project_id": "late-night-show", 
+    "firebase_url": "https://late-night-show.firebaseio.com", 
+    "project_number": "446085254058"
   }
 }
