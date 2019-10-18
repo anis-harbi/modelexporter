@@ -301,12 +301,13 @@ public class AssetsExporter : MonoBehaviour
 
         GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
         model.transform.SetParent(modelsParent.transform);
-        model.transform.localPosition = Vector3.zero;
+        model.transform.localPosition = new Vector3 (0f, -0.5f, 0f);
         Vector3 modelRotation = Vector3.zero;
         modelRotation.x = model.transform.localRotation.x;
         modelRotation.y = model.transform.localRotation.y + 180f;
         modelRotation.z = model.transform.localRotation.z;
         model.transform.localRotation = Quaternion.Euler(modelRotation);
+        model.transform.localScale *= 10f;
         yield return new WaitForEndOfFrame();
         GrabPixelsOnPostRender(fileName);
         yield return new WaitForEndOfFrame();
@@ -418,6 +419,7 @@ public class AssetsExporter : MonoBehaviour
         // Get the root reference location of the database.
         DatabaseReference reference = FirebaseDatabase.DefaultInstance.RootReference;
         string key = reference.Child(DBref).Push().Key;
+        key = fileName;
         reference.Child(DBref).Child(key).SetRawJsonValueAsync(json);
         writesCount += 1;
         //AssetsExporter.modelsDict.Remove(fileName);
@@ -426,7 +428,7 @@ public class AssetsExporter : MonoBehaviour
             isFinished = true;
             status.SetActive(true);
             slider.GetComponent<Slider>().value = 1f;
-            status.GetComponent<Text>().text = "finished uploading assets";
+            //status.GetComponent<Text>().text = "finished uploading assets";
             Debug.Log("Assets upload completed sccessfully");
 
         }
