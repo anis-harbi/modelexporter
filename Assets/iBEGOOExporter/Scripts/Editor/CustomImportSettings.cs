@@ -42,7 +42,7 @@ public class CustomImportSettings : AssetPostprocessor
                     modelImporter.animationType = ModelImporterAnimationType.Human;
                     modelImporter.ExtractTextures(assetPath);
                 }
-                if ((filePath.ToLower().Contains("props") || filePath.ToLower().Contains("sets") || filePath.ToLower().Contains("models")) && fileExt.ToLower().Contains("prefab")) 
+                if ((filePath.ToLower().Contains("props") || filePath.ToLower().Contains("sets") || filePath.ToLower().Contains("models")) && fileExt.ToLower().Contains("fbx")) 
                 {  
                     assetImporter.assetBundleName = fileName;
                 }

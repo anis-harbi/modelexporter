@@ -23,7 +23,7 @@ public class AssetsExporter : MonoBehaviour
 
     Firebase.Storage.FirebaseStorage storage;
 
-
+    public GameObject success;
 
     // static string databaseURL = "https://ibegoo-dev.firebaseio.com/";
     public static string databaseURL = "https://late-night-show.firebaseio.com/";
@@ -77,7 +77,7 @@ public class AssetsExporter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        success.SetActive(false);
         InitializeFirebase();
         headshotSpaceAvailibilty[0] = true;
         slider.SetActive(true);
@@ -182,7 +182,8 @@ public class AssetsExporter : MonoBehaviour
     protected void ExportFiles(string subPath)
     {
         var info = new DirectoryInfo("Assets/iBEGOOExporter/Resources/" + subPath);
-        var fileInfo = info.GetFiles();
+        var fileInfo = info.GetFiles("*.*", SearchOption.AllDirectories);
+
 
         foreach (FileInfo file in fileInfo)
         {
@@ -200,11 +201,11 @@ public class AssetsExporter : MonoBehaviour
             string fileExt = file.ToString().Substring(fileExtPos);
 
 
-            if (fileExt.ToLower().Contains(".prefab"))
+            if (fileExt.ToLower().Contains(".fbx"))
 
             {
                 total += 3;
-
+               
                 string uploadStoragePath = "";
                 string storageFileName = fileName;
                 if (subPath == "models") { uploadStoragePath = AssetsExporter.modelsStorageURL + fileName + "/"; storageFileName = AssetsExporter.modelStorageName; }
@@ -220,11 +221,19 @@ public class AssetsExporter : MonoBehaviour
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBURLKey] = "";
                 AssetsExporter.modelsDict[fileName][AssetsExporter.modelDBBundleURLKey] = "";
                 StartCoroutine(WriteToDatabase(fileName, subPath));
-                UploadFileTo(fileName, fileExt, filePath, subPath, uploadStoragePath, storageFileName, fileCount);
+
+                string pathInResources = "";
+                string[] stringSeparators = new string[] { "Assets/iBEGOOExporter/Resources/" };
+                string[] splittingResult = filePath.Split(stringSeparators, StringSplitOptions.None);
+                pathInResources = splittingResult[1];
+
+                UploadFileTo(fileName, fileExt, filePath, pathInResources + fileName, uploadStoragePath, storageFileName, fileCount);
                 fileCount += 1;
                 headshotSpaceAvailibilty[fileCount] = false;
             }
         }
+
+
 
     }
 
@@ -299,7 +308,7 @@ public class AssetsExporter : MonoBehaviour
 
         yield return new WaitUntil(() => headshotSpaceAvailibilty[count] == true);
 
-        GameObject model = (GameObject)Instantiate(Resources.Load(subPath + "/" + fileName));
+        GameObject model = (GameObject)Instantiate(Resources.Load(subPath));
         model.transform.SetParent(modelsParent.transform);
         model.transform.localPosition = new Vector3 (0f, -0.5f, 0f);
         Vector3 modelRotation = Vector3.zero;
@@ -429,7 +438,7 @@ public class AssetsExporter : MonoBehaviour
             status.SetActive(true);
             slider.GetComponent<Slider>().value = 1f;
             //status.GetComponent<Text>().text = "finished uploading assets";
-            Debug.Log("Assets upload completed sccessfully");
+            success.SetActive(true);
 
         }
 
