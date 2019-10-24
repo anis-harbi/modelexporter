@@ -307,7 +307,7 @@ public class AssetsExporter : MonoBehaviour
         modelRotation.y = model.transform.localRotation.y + 180f;
         modelRotation.z = model.transform.localRotation.z;
         model.transform.localRotation = Quaternion.Euler(modelRotation);
-        model.transform.localScale *= 10f;
+        model.transform.localScale *= 1.5f;
         yield return new WaitForEndOfFrame();
         GrabPixelsOnPostRender(fileName);
         yield return new WaitForEndOfFrame();

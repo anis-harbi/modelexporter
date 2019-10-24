@@ -1,5 +1,9 @@
 ﻿<Properties StartupConfiguration="{DF682C95-CD7A-3F02-A2D5-CF6A204BCFC8}|">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs">
+    <Files>
+      <File FileName="Assets/iBEGOOExporter/Scripts/Exporter/AssetsExporter.cs" Line="310" Column="44" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />

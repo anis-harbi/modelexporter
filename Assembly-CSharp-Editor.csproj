@@ -67,15 +67,14 @@
     <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\CreateAssetBundles.cs" />
     <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\CustomImportSettings.cs" />
     <Compile Include="Assets\iBEGOOExporter\Scripts\Editor\iBEGOO.cs" />
-    <None Include="Assets\Firebase\Editor\FirebaseAuth_version-6.6.0_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseDatabase_version-6.6.0_manifest.txt" />
-    <None Include="Assets\Firebase\Editor\AppDependencies.xml" />
-    <None Include="Assets\Firebase\Editor\StorageDependencies.xml" />
-    <None Include="Assets\iBEGOOExporter\Dependencies\PlayServicesResolver\Editor\play-services-resolver_v1.2.122.0.txt" />
-    <None Include="Assets\Firebase\Editor\AuthDependencies.xml" />
-    <None Include="Assets\Firebase\Editor\DatabaseDependencies.xml" />
-    <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.125.0.txt" />
-    <None Include="Assets\Firebase\Editor\FirebaseStorage_version-6.6.0_manifest.txt" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\FirebaseAuth_version-6.6.0_manifest.txt" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\FirebaseDatabase_version-6.6.0_manifest.txt" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\AppDependencies.xml" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\StorageDependencies.xml" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\AuthDependencies.xml" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\DatabaseDependencies.xml" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\PlayServicesResolver\Editor\play-services-resolver_v1.2.125.0.txt" />
+    <None Include="Assets\iBEGOOExporter\Dependencies\Firebase\Editor\FirebaseStorage_version-6.6.0_manifest.txt" />
     <Reference Include="UnityEditor.TestRunner">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
@@ -84,6 +83,9 @@
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.RenderPipelines.Core.Editor.dll</HintPath>
@@ -100,6 +102,9 @@
     <Reference Include="Unity.RenderPipelines.Lightweight.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.RenderPipelines.Lightweight.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
@@ -109,11 +114,20 @@
     <Reference Include="Unity.Postprocessing.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Rider.Editor">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.2D.Sprite.Editor">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Postprocessing.Runtime">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.2D.Tilemap.Editor">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>
@@ -126,21 +140,6 @@
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Rider.Editor">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.2D.Tilemap.Editor">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
@@ -340,6 +339,33 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Firebase.Editor">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Editor/Firebase.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.App">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.App.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Auth">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.Auth.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Database">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.Database.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Platform">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.Storage">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Firebase.TaskExtension">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.MiniJson">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Google.MiniJson.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Sharpen">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Firebase/Plugins/Google.Sharpen.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -349,17 +375,17 @@
     <Reference Include="Unity.Tasks">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/Parse/Plugins/dotNet45/Unity.Tasks.dll</HintPath>
     </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.122.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.122.0.dll</HintPath>
+    <Reference Include="Google.IOSResolver_v1.2.125.0">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.125.0.dll</HintPath>
     </Reference>
-    <Reference Include="Google.JarResolver_v1.2.122.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.JarResolver_v1.2.122.0.dll</HintPath>
+    <Reference Include="Google.JarResolver_v1.2.125.0">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.JarResolver_v1.2.125.0.dll</HintPath>
     </Reference>
     <Reference Include="Google.VersionHandler">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
     </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.122.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.122.0.dll</HintPath>
+    <Reference Include="Google.VersionHandlerImpl_v1.2.125.0">
+      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/iBEGOOExporter/Dependencies/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.125.0.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Advertisements">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -375,42 +401,6 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/PackageCache/com.unity.purchasing@2.0.6/Editor/UnityEditor.Purchasing.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.App">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.App.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Platform">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Sharpen">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.Sharpen.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.MiniJson">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Google.MiniJson.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.JarResolver_v1.2.125.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.125.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.VersionHandlerImpl_v1.2.125.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.125.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Editor">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Editor/Firebase.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Auth">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.TaskExtension">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.TaskExtension.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Storage">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.IOSResolver_v1.2.125.0">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.125.0.dll</HintPath>
-    </Reference>
-    <Reference Include="Firebase.Database">
-      <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Assets/Firebase/Plugins/Firebase.Database.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>/Users/abstudio/Documents/GitHub/modelexporter/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
